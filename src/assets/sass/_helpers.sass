@@ -1,0 +1,275 @@
+.none
+  display: none
+
+.nowrap
+  white-space: nowrap
+
+.font
+  &-italic
+    font-style: italic
+
+  &-medium
+    font-weight: 500
+
+  &-bold
+    font-weight: 700
+
+  &-12
+    font-size: rem(12)
+
+  &-13
+    font-size: rem(13)
+
+.text
+  &-upp
+    text-transform: uppercase
+
+  &-center
+    text-align: center
+
+  &-right
+    text-align: right
+
+
+.cl
+  &-white
+    color: cl('white')
+
+  &-black
+    &-3
+      color: cl('black-3')
+
+    &-1
+      color: cl('white-1')
+
+  &-gray
+    &-2
+      color: cl('gray-2')
+
+.bg
+  &-image
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+
+  &-white
+    background: cl('white-2')
+
+.radius
+  &-full
+    border-radius: 100%
+
+.flex
+  display: flex
+
+  &-inline
+    display: inline-flex
+
+  &-col
+    flex-direction: column
+
+  &-row
+    flex-direction: row
+
+    &-rev
+      flex-direction: row-reverse
+
+  &-center
+    align-items: center
+    justify-content: center
+
+  &-wrap
+    flex-wrap: wrap
+
+.items
+  &-center
+    align-items: center
+
+  &-start
+    align-items: start
+
+  &-end
+    align-items: end
+
+.justify
+  &-center
+    justify-content: center
+
+  &-start
+    justify-content: start
+
+  &-end
+    justify-content: end
+
+  &-between
+    justify-content: space-between
+
+  &-around
+    justify-content: space-around
+
+.grow
+  flex-grow: 1
+
+  &-0
+    flex-grow: 0
+
+.gap
+  &-0
+    gap: 0
+
+.grid
+  display: grid
+
+  &-2
+    grid-template-columns: repeat(2, 1fr)
+
+.font
+  &-bold
+    font-weight: 700
+
+.h
+  &-screen
+    min-height: calc(100vh)
+
+.w
+  &-full
+    width: 100%
+    min-width: 100%
+
+.absolute
+  position: absolute
+
+  &-full
+    inset: 0
+
+.relative
+  position: relative
+  z-index: 1
+
+.right
+  &-0
+    right: 0
+
+.left
+  &-0
+    left: 0
+
+.top
+  &-0
+    top: 0
+
+.bottom
+  &-0
+    bottom: 0
+
+.z
+  &--1
+    z-index: -1
+
+  &-1
+    z-index: 1
+
+  &-2
+    z-index: 2
+
+.overflow
+  &-hidden
+    overflow: hidden
+
+  &-visible
+    overflow: visible
+
+.opacity
+  &-5
+    opacity: 0.5
+
+.object-cover
+  -o-object-fit: cover
+  object-fit: cover
+  -o-object-position: center
+  object-position: center
+  width: 100%
+  height: 100%
+
+.font
+  &-primary
+    font-family: var(--font-primary)
+
+  &-rf-dewi
+    font-family: var(--font-rf-dewi)
+
+.leading
+  line-height: 1
+
+  &-1
+    line-height: 1.1
+
+  &-2
+    line-height: 1.2
+
+  &-3
+    line-height: 1.3
+
+.letter
+  &-0
+    letter-spacing: 0
+
+a,
+button,
+.transition
+  transition: all $duration-normal ease
+
+.link
+  &-white
+    color: cl('white')
+
+    &:hover
+      color: cl('orange')
+
+    &-1
+      color: cl('white-1')
+      border-bottom: rem(1) solid cl('white-1', 0.7)
+
+      &:hover
+        color: cl('white')
+        border-color: cl('white', 0.7)
+
+.m
+  &l
+    &-10
+      margin-left: rem(10)
+
+  &r
+    &-10
+      margin-right: rem(10)
+
+.title
+  font-family: var(--font-rf-dewi)
+  font-weight: 700
+  font-size: rem(42)
+  line-height: 1.05
+  padding-bottom: rem(5)
+
+  @include laptop
+    font-size: rem(38)
+
+  @include mobile
+    font-size: rem(28)
+
+  &-black
+    background: linear-gradient(0deg, #999999, #090201)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+
+.sub
+  &-gradient
+    background: linear-gradient(90deg, rgba(127, 124, 124, 1) 0%, rgba(57, 57, 57, 1) 100%)
+    padding: rem(1)
+    border-radius: rem(100)
+    overflow: hidden
+
+    span
+      padding: 0 rem(14)
+      height: rem(30)
+      border-radius: rem(100)
+      background: linear-gradient(180deg, #0F0C0C 7.47%, #161313 74.28%)

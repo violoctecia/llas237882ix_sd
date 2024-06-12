@@ -1,0 +1,67 @@
+.header
+  top: 0
+  left: 0
+  right: 0
+  border-bottom: rem(1) solid cl('gray-1')
+
+  &__container
+    height: rem(70)
+
+  &__login
+    width: rem(40)
+    height: rem(40)
+    border-radius: rem(50)
+    margin-left: rem(30)
+
+    @include mobile
+      margin-left: rem(20)
+      width: rem(48)
+      height: rem(48)
+
+  &__icons
+    @include desktop-min
+      margin-left: rem(145)
+
+    @include mobile
+      justify-content: flex-start
+      flex-grow: 1
+      column-gap: rem(20)
+      flex-direction: row-reverse
+
+    li
+      @include mobile-min
+        background: linear-gradient(90deg, rgba(127,124,124,1) 0%, rgba(57,57,57,1) 100%)
+        padding: rem(1)
+        border-radius: rem(100)
+        margin: 0 rem(5)
+        overflow: hidden
+
+  &__icon
+    @include mobile-min
+      padding: 0 rem(14)
+      height: rem(30)
+      border-radius: rem(100)
+      background: linear-gradient(180deg, #0F0C0C 7.47%, #161313 74.28%)
+
+    svg
+      fill: cl('white')
+
+      @include mobile
+        width: rem(22)
+        height: rem(22)
+
+    &:hover
+      svg
+        fill: cl('orange')
+
+  &__contacts
+    column-gap: rem(40)
+    @include mobile
+      display: none
+
+  &__contact
+    row-gap: rem(2)
+
+  &__location
+    @include laptop
+      display: none

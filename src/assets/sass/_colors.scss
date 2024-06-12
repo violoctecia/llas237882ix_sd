@@ -1,0 +1,25 @@
+$colors: (
+  "white": #fff,
+  "white-1": #CECECE,
+  "white-2": #FBF9FA,
+  "black": #000,
+  "black-1": #090201,
+  "black-2": #0F0C0C,
+  "black-3": #171717,
+  "gray-1": #535353,
+  "gray-2": #7F7C7C,
+  "orange": #FF4900,
+);
+
+@function hextorgb($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+:root {
+  @if $colors {
+    @each $key, $value in $colors {
+      --color-#{$key}: #{$value};
+      --color-#{$key}--rgb: #{red($value), green($value), blue($value)};
+    }
+  }
+}

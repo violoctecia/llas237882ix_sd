@@ -1,0 +1,51 @@
+\:root
+  --font-primary: 'Graphik LCG'
+  --font-rf-dewi: 'RF Dewi'
+
+*,
+*::before,
+*::after
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+body
+  min-height: 100vh
+  color: cl('white')
+  background: cl('black-1')
+  font-family: var(--font-primary)
+  line-height: 1.3
+  font-size: rem(14)
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+  &::-webkit-scrollbar
+    width: 5px
+  &::-webkit-scrollbar-track
+    background: cl('black-1')
+  &::-webkit-scrollbar-thumb
+    background: cl('orange')
+
+#app
+  min-height: 100vh
+  position: relative
+  display: flex
+  flex-direction: column
+  overflow: hidden
+
+.container
+  margin: 0 auto
+  padding: 0 rem(20)
+  width: 100%
+  max-width: rem(1270)
+
+  @include mobile
+    padding: 0 rem(10)
+
+a
+  text-decoration: none
+
+ul
+  list-style: none
+

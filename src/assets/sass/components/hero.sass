@@ -1,0 +1,119 @@
+.hero
+  min-height: 100vh
+  padding-top: rem(93)
+  padding-bottom: rem(23)
+
+  @include mobile
+    padding-top: rem(193)
+
+
+  &__frame
+    margin-top: rem(25)
+    @include mobile
+      margin-top: 0
+
+  &__title
+    background: linear-gradient(0deg, #FFFFFF, #999999)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+    margin: rem(10) 0 rem(16) 0
+    padding-bottom: 0
+
+    @include mobile
+      font-size: rem(34)
+      margin-top: rem(20)
+
+    br
+      display: none
+
+      @include mobile
+        display: block
+
+
+  &__info
+    height: rem(190)
+    border-radius: rem(15)
+
+    @include mobile
+      height: auto
+      margin-top: rem(100)
+
+  &__button
+    margin-top: rem(28)
+    position: relative
+
+    &:before
+      content: ''
+      width: 0
+      height: 0
+      border-left: rem(8) solid transparent
+      border-right: rem(8) solid transparent
+      border-top: rem(8) solid cl('orange')
+      background: none
+      position: absolute
+      left: 50%
+      margin-left: rem(-8)
+      bottom: rem(-8)
+
+      @include mobile
+        display: none
+
+  &__down
+    margin-top: rem(17)
+    @include mobile
+      display: none
+
+  &__circle
+    margin-top: rem(22)
+    margin-bottom: rem(-164)
+    @include mobile
+      display: none
+
+  &__items
+    grid-template-columns: repeat(4, 1fr)
+    padding: rem(10)
+
+    @include mobile
+      display: flex
+      flex-direction: column
+      padding: rem(40)
+      align-items: flex-start
+      row-gap: rem(40)
+
+
+  &__item
+    padding: rem(20)
+    row-gap: rem(18)
+
+    @include mobile
+      padding: 0
+      flex-direction: row
+      align-items: center
+      text-align: left
+      font-size: rem(13)
+
+    img
+      @include mobile
+        width: rem(18)
+        height: rem(18)
+        margin-right: rem(16)
+
+    br
+      @include mobile
+        display: none
+
+    &:before
+      content: ''
+      width: rem(2)
+      height: rem(22)
+      background: cl('white-1')
+      position: absolute
+      left: 0
+      top: 50%
+      margin-top: rem(-11)
+      @include mobile
+        display: none
+
+    &:first-child
+      &:before
+        display: none

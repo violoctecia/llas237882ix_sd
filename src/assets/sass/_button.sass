@@ -1,0 +1,26 @@
+.button
+  padding: 0
+  border: 0
+  background: none
+  outline: none
+  display: inline-flex
+  align-items: center
+  cursor: pointer
+
+  &-black
+    background: cl('black-2')
+
+    &:hover
+      background: cl('orange')
+
+  &-orange
+    background: cl('orange')
+
+  &-primary
+    height: rem(47)
+    padding: 0 rem(25)
+    border-radius: rem(100)
+    color: cl('white')
+    font-weight: 700
+    font-size: rem(14)
+    font-family: var(--font-rf-dewi)
