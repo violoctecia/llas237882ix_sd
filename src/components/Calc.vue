@@ -5,8 +5,15 @@ import IconCircleRight from "@/components/icons/IconCircleRight-1.vue";
 import Period from "@/components/blocks/Period.vue";
 
 import Slider from '@/components/blocks/Slider.vue';
+import {ref, computed} from "vue";
 
 const {title, sub, desc, period} = useCalcStore()
+
+const sliderValue = ref(300000)
+
+const formattedSliderValue = computed(() => {
+  return sliderValue.value.toLocaleString('de-DE');
+});
 </script>
 
 <template>
@@ -26,9 +33,9 @@ const {title, sub, desc, period} = useCalcStore()
           <div class="calc__form">
             <div class="calc__form-body flex flex-col items-center">
               <Period :items="period" />
-              <div class="calc__form-value font-bold font-rf-dewi flex flex-center"><b class="cl-orange">₽&nbsp;</b><span class="cl-white">300.000</span></div>
+              <div class="calc__form-value font-bold font-rf-dewi flex flex-center"><b class="cl-orange">₽&nbsp;</b><span class="cl-white">{{formattedSliderValue}}</span></div>
 
-              <Slider v-model="sliderValue" :min="0" :max="50" class="mt-10" />
+              <Slider v-model="sliderValue" :min="0" :max="900000" class="mt-10" />
 
             </div>
             <div class="calc__form-foot flex flex-col">

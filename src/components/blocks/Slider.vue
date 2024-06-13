@@ -74,7 +74,8 @@ export default {
       const slider = this.$refs.thumb.parentElement;
       const rect = slider.getBoundingClientRect();
       const offsetX = clientX - rect.left;
-      const newValue = this.min + (offsetX / rect.width) * (this.max - this.min);
+      let newValue = this.min + (offsetX / rect.width) * (this.max - this.min);
+      newValue = Math.round(newValue); // Округление до ближайшего целого числа
       this.currentValue = Math.min(Math.max(newValue, this.min), this.max);
       this.$emit('update:modelValue', this.currentValue);
     },
