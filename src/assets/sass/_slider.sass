@@ -1,0 +1,28 @@
+.slider
+  &-container
+    position: relative
+    height: 3px
+    background-color: cl('black-4')
+    border-radius: 5px
+    cursor: pointer
+    user-select: none
+    width: rem(200)
+
+  &-track
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    background-color: cl('orange')
+    border-radius: 5px
+
+  &-thumb
+    position: absolute
+    top: 50%
+    width: rem(10)
+    height: rem(10)
+    background-color: cl('orange')
+    border: 2px solid white
+    border-radius: 50%
+    transform: translate(-50%, -50%)
+    cursor: pointer

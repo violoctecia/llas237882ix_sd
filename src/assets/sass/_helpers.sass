@@ -34,18 +34,20 @@
 .cl
   &-white
     color: cl('white')
+    &-1
+      color: cl('white-1')
 
   &-black
     &-3
       color: cl('black-3')
 
-    &-1
-      color: cl('white-1')
-
   &-gray
     &-2
       color: cl('gray-2')
-
+    &-4
+      color: cl('gray-4')
+  &-orange
+    color: cl('orange')
 .bg
   &-image
     background-size: cover
@@ -58,7 +60,8 @@
 .radius
   &-full
     border-radius: 100%
-
+  &-15
+    border-radius: rem(15)
 .flex
   display: flex
 
@@ -233,7 +236,13 @@ button,
       &:hover
         color: cl('white')
         border-color: cl('white', 0.7)
+  &-black
+    color: cl('black-4')
+    &-border
+      border-bottom: rem(1) solid cl('black-4', 0.7)
 
+      &:hover
+        border-color: cl('black-4', 0)
 .m
   &l
     &-10
@@ -242,7 +251,18 @@ button,
   &r
     &-10
       margin-right: rem(10)
-
+  &b
+    &-10
+      margin-bottom: rem(10)
+  &t
+    &-10
+      margin-top: rem(10)
+.p
+  &y
+    &-primary
+      padding: rem(105) 0
+      @include laptop
+        padding: rem(80) 0
 .title
   font-family: var(--font-rf-dewi)
   font-weight: 700
@@ -258,6 +278,11 @@ button,
 
   &-black
     background: linear-gradient(0deg, #999999, #090201)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+
+  &-gray
+    background: linear-gradient(0deg, #fff, #999999)
     -webkit-background-clip: text
     -webkit-text-fill-color: transparent
 

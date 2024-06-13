@@ -12,10 +12,10 @@ const {sub, title, desc, items} = useAboutStore()
 
       <div class="flex flex-col flex-center text-center">
         <div class="sub-gradient" v-if="sub">
-        <span class="flex items-center cl-white font-13 font-rf-dewi font-bold">
-          <IconUsers class="mr-10" />
-          {{sub}}
-        </span>
+          <span class="flex items-center cl-white font-13 font-rf-dewi font-bold">
+            <IconUsers class="mr-10" />
+            {{sub}}
+          </span>
         </div>
 
         <h2 v-if="title" v-html="title" class="about__title title title-black" />

@@ -1,0 +1,69 @@
+.calc
+  padding: rem(100) 0
+
+  @include laptop
+    padding: rem(80) 0
+
+  &__frame
+    padding: rem(60) rem(20)
+
+  &__title
+    margin: rem(10) 0
+
+  &__circle
+    @include mobile
+      display: none
+
+  &__form
+    width: 100%
+    max-width: rem(418)
+    border-radius: rem(16)
+    border: rem(1) solid cl('gray-3')
+    background: url("@/assets/img/other/calc@2x.jpg") no-repeat
+    background-size: cover
+    margin-top: rem(60)
+
+    &-body
+      padding: rem(20) 0
+
+    &-foot
+      padding: rem(12) rem(20)
+      row-gap: rem(15)
+      border-top: rem(1) solid cl('gray-3')
+
+    &-button
+      height: rem(36)
+      justify-content: center
+      border-radius: rem(100)
+      color: cl('white')
+
+    &-income
+      background: cl('white')
+      font-size: rem(12)
+      color: cl('black-2')
+      height: rem(32)
+      border-radius: rem(100)
+      padding: 0 rem(15)
+
+    &-value
+      height: rem(37)
+      border: rem(1) solid cl('gray-3')
+      border-radius: rem(50)
+      width: rem(200)
+      margin: 0 auto
+
+    &-period
+      margin-bottom: rem(28)
+
+      li
+        height: rem(30)
+        border-radius: rem(50)
+        background: cl('black-2')
+        color: cl('white')
+        margin: 0 rem(5)
+        padding: 0 rem(15)
+        cursor: pointer
+        user-select: none
+
+        &.active
+          background: cl('orange')
