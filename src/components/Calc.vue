@@ -6,6 +6,7 @@ import Period from "@/components/blocks/Period.vue";
 
 import Slider from '@/components/blocks/Slider.vue';
 import {ref, computed} from "vue";
+import Calculator from "@/components/blocks/Calculator.vue";
 
 const {title, sub, desc, period} = useCalcStore()
 
@@ -30,22 +31,25 @@ const formattedSliderValue = computed(() => {
           </div>
           <h2 v-if="title" v-html="title" class="calc__title title leading"/>
           <p v-if="desc" v-html="desc" class="cl-white-1" />
-          <div class="calc__form">
-            <div class="calc__form-body flex flex-col items-center">
-              <Period :items="period" />
-              <div class="calc__form-value font-bold font-rf-dewi flex flex-center"><b class="cl-orange">₽&nbsp;</b><span class="cl-white">{{formattedSliderValue}}</span></div>
 
-              <Slider v-model="sliderValue" :min="0" :max="900000" class="mt-10" />
+          <Calculator />
+<!--          <div class="calc__form">-->
+<!--            <div class="calc__form-body flex flex-col items-center">-->
+<!--              <Period :items="period" />-->
+<!--              <div class="calc__form-value font-bold font-rf-dewi flex flex-center"><b class="cl-orange">₽&nbsp;</b><span class="cl-white">{{formattedSliderValue}}</span></div>-->
 
-            </div>
-            <div class="calc__form-foot flex flex-col">
-              <button class="calc__form-button button button-orange font-rf-dewi font-bold font-13">Инвестировать</button>
-              <div class="flex items-center justify-between">
-                <span class="cl-white font-13">Общий доход</span>
-                <span class="calc__form-income font-medium flex flex-center">+ 375.000₽</span>
-              </div>
-            </div>
-          </div>
+<!--              <Slider v-model="sliderValue" :min="0" :max="900000" class="mt-10" />-->
+
+<!--            </div>-->
+<!--            <div class="calc__form-foot flex flex-col">-->
+<!--              <button class="calc__form-button button button-orange font-rf-dewi font-bold font-13">Инвестировать</button>-->
+<!--              <div class="flex items-center justify-between">-->
+<!--                <span class="cl-white font-13">Общий доход</span>-->
+<!--                <span class="calc__form-income font-medium flex flex-center">+ 375.000₽</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
         </div>
         <picture class="absolute absolute-full z--1">
           <img src="@/assets/img/other/calc-frame.jpg"
