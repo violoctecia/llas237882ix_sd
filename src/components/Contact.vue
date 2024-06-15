@@ -2,6 +2,7 @@
 import {useContactStore} from "@/stores/contact.js";
 import IconPhoneWhite from "@/components/icons/IconPhoneWhite.vue";
 import IconLocationRed from "@/components/icons/IconLocationRed.vue";
+import { MaskInput } from 'vue-3-mask';
 
 const {title, sub} = useContactStore()
 </script>
@@ -37,7 +38,7 @@ const {title, sub} = useContactStore()
             </div>
             <div class="contact__form-field flex flex-col mb-10">
               <label class="cl-white-1 mb-5" for="phone">Телефон</label>
-              <input type="text" value="" id="phone" class="input input-black">
+              <MaskInput class="input input-black" id="phone" mask="+7 (###) ###-##-##" />
             </div>
             <button class="button button-orange button-secondary">Отправить</button>
           </form>
