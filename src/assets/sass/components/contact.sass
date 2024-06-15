@@ -1,0 +1,59 @@
+.contact
+  padding-top: rem(105)
+
+  @include laptop
+    padding-top: rem(80)
+
+  &__row
+    grid-template-columns: 1fr rem(418)
+    grid-gap: rem(10)
+    margin-top: rem(60)
+
+    @include laptop
+      grid-template-columns: 1fr 1fr
+
+    @include mobile
+      grid-template-columns: 1fr
+
+  &__location
+    background: cl('black-1')
+    padding: rem(15)
+    row-gap: rem(5)
+
+  &__map
+    @include mobile
+      height: rem(400)
+
+    @include mobile-s
+      height: rem(304)
+
+  &__form
+    background: url(@/assets/img/other/contact-form.jpg) no-repeat
+    background-size: cover
+    padding: rem(30) rem(20)
+
+    &-field
+      max-width: rem(250)
+
+  &__info
+    background: url(@/assets/img/other/contact-info.jpg) no-repeat
+    background-size: cover
+    padding: rem(25) rem(15)
+
+    &-title
+      font-size: rem(18)
+
+    &-item
+      margin-top: rem(10)
+
+      @include mobile
+        font-size: rem(13)
+        justify-content: space-between
+
+      span
+        min-width: rem(150)
+        margin-right: rem(20)
+        color: cl('gray-4')
+
+        @include mobile
+          font-size: rem(12)

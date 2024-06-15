@@ -1,0 +1,63 @@
+<script setup>
+import {useReviewsStore} from "@/stores/reviews.js";
+import IconUsers from "@/components/icons/IconUsers.vue";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import CircleLeft from "@/components/icons/CircleLeft.vue";
+import CircleRight from "@/components/icons/CircleRight.vue";
+
+const modules = [Navigation];
+const {title, sub,  items} = useReviewsStore()
+</script>
+
+<template>
+  <section class="reviews pt-primary relative">
+    <div class="container">
+      <div class="flex flex-col flex-center text-center">
+        <div class="sub-gradient" v-if="sub">
+          <span class="flex items-center cl-white font-13 font-rf-dewi font-bold">
+            <IconUsers class="mr-10" />
+            {{sub}}
+          </span>
+        </div>
+
+        <h2 v-if="title" v-html="title" class="title title-gray mt-10" />
+      </div>
+
+      <div class="reviews__frame">
+        <swiper
+            class="reviews__items"
+            :navigation="true"
+            :modules="modules"
+            :centered-slides="true"
+            :loop="true"
+            :loop-additional-slides="3"
+            :initial-slide="4"
+            :slides-per-view="1"
+            :space-between="20"
+        >
+          <swiper-slide v-for="(item, key) in items" :key="key" class="flex flex-col">
+            <div class="reviews__item flex flex-col radius-15 overflow-hidden">
+              <picture class="reviews__image flex">
+                <img :src="item.image[0]"
+                     :srcset="item.image[0] + ' 1x,' + item.image[1] + ' 2x,'"
+                     alt="" loading="lazy" class="object-cover">
+              </picture>
+              <b v-html="item.name" class="reviews__item-name font-rf-dewi flex" />
+            </div>
+
+          </swiper-slide>
+        </swiper>
+      </div>
+
+    </div>
+
+    <CircleLeft class="reviews__circle reviews__circle_left absolute bottom-0" />
+    <img src="@/assets/img/other/phone.png"
+         srcset="@/assets/img/other/phone.png 1x, @/assets/img/other/phone@2x.png 2x"
+         alt="" loading="lazy" class="reviews__phone absolute bottom-0" width="382" height="509">
+    <CircleRight class="reviews__circle reviews__circle_left absolute bottom-0" />
+
+  </section>
+</template>

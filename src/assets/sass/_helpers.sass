@@ -11,6 +11,9 @@
   &-medium
     font-weight: 500
 
+  &-semibold
+    font-weight: 600
+
   &-bold
     font-weight: 700
 
@@ -42,6 +45,8 @@
       color: cl('black-3')
 
   &-gray
+    &-1
+      color: cl('gray-1')
     &-2
       color: cl('gray-2')
     &-4
@@ -60,6 +65,8 @@
 .radius
   &-full
     border-radius: 100%
+  &-10
+    border-radius: rem(10)
   &-15
     border-radius: rem(15)
 .flex
@@ -252,15 +259,24 @@ button,
     &-10
       margin-right: rem(10)
   &b
+    &-5
+      margin-bottom: rem(5)
     &-10
       margin-bottom: rem(10)
   &t
     &-10
       margin-top: rem(10)
 .p
+  &t
+    &-primary
+      padding-top: rem(105)
+
+      @include laptop
+        padding-top: rem(80)
   &y
     &-primary
       padding: rem(105) 0
+
       @include laptop
         padding: rem(80) 0
 .title
@@ -298,3 +314,17 @@ button,
       height: rem(30)
       border-radius: rem(100)
       background: linear-gradient(180deg, #0F0C0C 7.47%, #161313 74.28%)
+.input
+  outline: none
+  padding: 0 rem(25)
+  border: 0
+  height: rem(49)
+  border-radius: rem(15)
+  display: flex
+  font-size: rem(14)
+  font-weight: bold
+  font-family: var(--font-rf-dewi)
+
+  &-black
+    background: cl('black-3')
+    color: cl('white')

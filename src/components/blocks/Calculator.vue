@@ -8,7 +8,7 @@ const active = ref(0);
 
 const toggle = (key) => active.value = key;
 
-const sliderValue = ref(3500000);
+const sliderValue = ref(300000);
 
 const formattedSliderValue = computed(() => {
   return sliderValue.value.toLocaleString('de-DE');

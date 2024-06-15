@@ -1,0 +1,68 @@
+.reviews
+  padding-bottom: rem(120)
+
+  &__circle
+    left: 50%
+    transform: translateX(-50%)
+
+  &__items
+    overflow: visible !important
+
+  &__image
+    height: rem(152)
+
+  &__frame
+    width: rem(321)
+    margin: 0 auto
+    margin-top: rem(180)
+
+  &__phone
+    left: 50%
+    transform: translateX(-50%)
+
+  &__item
+    background: linear-gradient(101.15deg, #090201 11.88%, #171717 97.04%)
+    padding-bottom: rem(15)
+
+    &-name
+      padding: rem(10)
+
+.swiper
+  &-button-prev,
+  &-button-next
+    position: absolute
+    bottom: rem(-60)
+    cursor: pointer
+
+    &:before
+      content: ''
+      width: rem(27)
+      height: rem(10)
+      display: flex
+
+  &-button-prev
+    margin-right: rem(30)
+    right: 50%
+
+    &:before
+      background: url(@/assets/img/icons/arw-prev.svg)
+
+  &-button-next
+    left: 50%
+    margin-left: rem(30)
+
+    &:before
+      background: url(@/assets/img/icons/arw-next.svg)
+
+  &-slide
+    opacity: 0.2
+    padding-top: rem(12)
+    transition: all 0.3s ease
+
+    &-active
+      opacity: 1
+      margin-top: 0
+      padding-top: 0
+
+      .reviews__image
+        height: rem(176)
