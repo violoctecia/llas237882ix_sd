@@ -1,14 +1,21 @@
 <script setup>
 import {useReviewsStore} from "@/stores/reviews.js";
 import IconUsers from "@/components/icons/IconUsers.vue";
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
 import CircleLeft from "@/components/icons/CircleLeft.vue";
 import CircleRight from "@/components/icons/CircleRight.vue";
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import '@splidejs/vue-splide/css';
 
-const modules = [Navigation];
 const {title, sub,  items} = useReviewsStore()
+
+const options = {
+  gap   : '20px',
+  type   : 'loop',
+  pagination: false,
+  speed: 300,
+  arrowPath: ''
+};
+
 </script>
 
 <template>
@@ -25,19 +32,9 @@ const {title, sub,  items} = useReviewsStore()
         <h2 v-if="title" v-html="title" class="title title-gray mt-10" />
       </div>
 
-      <div class="reviews__frame">
-        <swiper
-            class="reviews__items"
-            :navigation="true"
-            :modules="modules"
-            :centered-slides="true"
-            :loop="true"
-            :loop-additional-slides="3"
-            :initial-slide="4"
-            :slides-per-view="1"
-            :space-between="20"
-        >
-          <swiper-slide v-for="(item, key) in items" :key="key" class="flex flex-col">
+      <div class="reviews__frame relative">
+        <Splide :options="options" aria-label="My Favorite Images">
+          <SplideSlide v-for="(item, key) in items" :key="key" class="reviews__slide flex flex-col flex-center">
             <div class="reviews__item flex flex-col radius-15 overflow-hidden">
               <picture class="reviews__image flex">
                 <img :src="item.image[0]"
@@ -46,9 +43,8 @@ const {title, sub,  items} = useReviewsStore()
               </picture>
               <b v-html="item.name" class="reviews__item-name font-rf-dewi flex" />
             </div>
-
-          </swiper-slide>
-        </swiper>
+          </SplideSlide>
+        </Splide>
       </div>
 
     </div>

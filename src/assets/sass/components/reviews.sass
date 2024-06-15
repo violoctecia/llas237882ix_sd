@@ -8,8 +8,12 @@
   &__items
     overflow: visible !important
 
+  &__slide
+    min-height: rem(230)
+
   &__image
     height: rem(152)
+    transition: all 0.3s ease
 
   &__frame
     width: rem(321)
@@ -23,16 +27,42 @@
   &__item
     background: linear-gradient(101.15deg, #090201 11.88%, #171717 97.04%)
     padding-bottom: rem(15)
+    width: 100%
 
     &-name
       padding: rem(10)
 
-.swiper
-  &-button-prev,
-  &-button-next
+.splide
+  &__slide
+    .reviews__item
+    opacity: 0.2
+    transition: all 0.3s ease
+
+    &.is-active
+      .reviews__item
+        opacity: 1
+
+      .reviews__image
+        height: rem(176)
+
+  &__track
+    overflow: visible !important
+
+  &__arrows
     position: absolute
     bottom: rem(-60)
-    cursor: pointer
+    left: 50%
+    transform: translateX(-50%)
+    right: 0
+    width: rem(130)
+
+  &__arrow
+    background: none !important
+    outline: none !important
+    border-radius: 0 !important
+    border: 0 !important
+    width: rem(27) !important
+    height: rem(10) !important
 
     &:before
       content: ''
@@ -40,29 +70,13 @@
       height: rem(10)
       display: flex
 
-  &-button-prev
-    margin-right: rem(30)
-    right: 50%
+    &--prev
+      &:before
+        background: url(@/assets/img/icons/arw-prev.svg)
 
-    &:before
-      background: url(@/assets/img/icons/arw-prev.svg)
+    &--next
+      &:before
+        background: url(@/assets/img/icons/arw-next.svg)
 
-  &-button-next
-    left: 50%
-    margin-left: rem(30)
-
-    &:before
-      background: url(@/assets/img/icons/arw-next.svg)
-
-  &-slide
-    opacity: 0.2
-    padding-top: rem(12)
-    transition: all 0.3s ease
-
-    &-active
-      opacity: 1
-      margin-top: 0
-      padding-top: 0
-
-      .reviews__image
-        height: rem(176)
+    svg
+      display: none
