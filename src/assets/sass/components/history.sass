@@ -1,0 +1,41 @@
+.history
+  background: cl('black-5')
+  border: rem(1) solid cl('gray-3')
+  border-radius: rem(16)
+  padding: rem(20) rem(24)
+
+  @include mobile
+    padding: rem(20) rem(15)
+
+  &__table
+    margin-top: rem(24)
+    color: cl('white-1')
+
+  &__item,
+  &__head
+    grid-template-columns: repeat(3, 1fr)
+
+    @include mobile-s
+      grid-template-columns: rem(90) 1fr 1fr
+
+  &__head
+    font-size: rem(12)
+    border-bottom: rem(1) solid cl('gray-3')
+    margin-bottom: rem(15)
+
+  &__body
+    row-gap: rem(8)
+
+  &__item
+    font-size: rem(13)
+    border-radius: rem(10)
+    font-weight: 500
+
+    @include mobile
+      font-size: rem(12)
+
+    &:nth-child(odd)
+      background: cl('gray-3', 0.4)
+
+  &__col
+    padding: rem(10)

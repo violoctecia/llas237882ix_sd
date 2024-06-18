@@ -5,6 +5,9 @@ import IconTelegram from "@/components/icons/IconTelegram.vue";
 import IconLocation from "@/components/icons/IconLocation.vue";
 import IconEmail from "@/components/icons/IconEmail.vue";
 import IconPhone from "@/components/icons/IconPhone.vue";
+import IconExit from "@/components/icons/IconExit.vue";
+
+defineProps(['exit'])
 </script>
 
 <template>
@@ -44,8 +47,15 @@ import IconPhone from "@/components/icons/IconPhone.vue";
             <a href="#" class="link-white-1 leading font-12">Заказать звонок</a>
           </div>
         </div>
-        <button class="header__login button button-black flex-center">
+        <button
+            class="header__login button button-black flex-center"
+            :class="exit ? 'active' : ''"
+        >
           <IconUser />
+        </button>
+
+        <button v-if="exit" class="header__exit button">
+          <IconExit />
         </button>
       </div>
 

@@ -7,12 +7,13 @@ $colors: (
   "black-2": #0F0C0C,
   "black-3": #171717,
   "black-4": #1F1F1F,
+  "black-5": #161313,
   "gray-1": #535353,
   "gray-2": #7F7C7C,
   "gray-3": #393939,
   "gray-4": #999999,
   "orange": #FF4900,
-
+  "orange-1": #9A360E
 );
 
 @function hextorgb($hex) {

@@ -1,0 +1,66 @@
+.deposit
+
+  &__date
+    column-gap: rem(15)
+
+    @include mobile
+      font-size: rem(12)
+      column-gap: rem(10)
+
+  &__body
+    @include mobile
+      padding-left: rem(15)
+      padding-right: rem(15)
+
+  &__foot
+    min-height: rem(61)
+
+  &__info
+    @include mobile
+      display: grid
+      grid-template-columns: 1fr 1fr
+      grid-template-areas: 'item3 item2' 'item1 item1'
+    li
+      padding: rem(11) rem(15)
+      border-left: rem(1) solid cl('gray-3')
+
+      &:first-child
+        border-left: 0
+
+      &:nth-child(1)
+        @include mobile
+          grid-area: item1
+          border-top: rem(1) solid cl('gray-3')
+
+      &:nth-child(2)
+        background: cl('white', 0.05)
+        @include mobile
+          grid-area: item2
+
+      &:nth-child(3)
+        @include mobile
+          grid-area: item3
+          border-left: 0
+
+      svg
+        min-width: rem(16)
+      p
+        row-gap: rem(4)
+
+  &__values
+    margin-top: rem(20)
+
+    @include mobile
+      flex-direction: column
+      align-items: flex-start
+      row-gap: rem(10)
+
+  &__value
+    font-size: rem(28)
+
+  &__income
+    border: rem(1) solid cl('orange')
+    height: rem(34)
+    padding: 0 rem(4) 0 rem(10)
+    line-height: rem(16)
+    letter-spacing: rem(6.5)

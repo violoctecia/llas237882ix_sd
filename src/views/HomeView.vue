@@ -8,10 +8,12 @@ import Reviews from "@/components/Reviews.vue";
 import Faq from "@/components/Faq.vue";
 import Contact from "@/components/Contact.vue";
 import AppFooter from "@/components/AppFooter.vue";
+import AppHeader from "@/components/AppHeader.vue";
 </script>
 
 <template>
   <main>
+    <AppHeader />
     <Hero />
     <About />
     <Calc />

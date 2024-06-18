@@ -61,6 +61,11 @@
 
   &-white
     background: cl('white-2')
+  &-orange
+    background: cl('orange')
+  &-1
+    background: url(@/assets/img/other/bg-1.jpg) no-repeat right top
+    background-size: cover
 
 .radius
   &-full
@@ -69,6 +74,8 @@
     border-radius: rem(10)
   &-15
     border-radius: rem(15)
+  &-16
+    border-radius: rem(16)
 .flex
   display: flex
 
@@ -279,6 +286,8 @@ button,
 
       @include laptop
         padding: rem(80) 0
+  &-20
+    padding: rem(20)
 .title
   font-family: var(--font-rf-dewi)
   font-weight: 700
@@ -301,6 +310,9 @@ button,
     background: linear-gradient(0deg, #fff, #999999)
     -webkit-background-clip: text
     -webkit-text-fill-color: transparent
+
+  &-primary
+    font-size: rem(24)
 
 .sub
   &-gradient
@@ -328,3 +340,11 @@ button,
   &-black
     background: cl('black-3')
     color: cl('white')
+
+
+.border
+  &-1
+    border: rem(1) solid cl('gray-3')
+  &-top
+    &-1
+      border-top: rem(1) solid cl('gray-3')

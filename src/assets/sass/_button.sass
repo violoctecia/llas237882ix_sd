@@ -15,6 +15,18 @@
 
   &-orange
     background: cl('orange')
+    color: cl('white')
+
+    &:hover
+      background-color: cl('orange-1')
+
+  &-border
+    border: rem(1) solid cl('white')
+    color: cl('white')
+
+    &:hover
+      background-color: cl('white')
+      color: cl('black')
 
   &-primary
     height: rem(47)
@@ -29,7 +41,14 @@
     height: rem(36)
     padding: 0 rem(15)
     border-radius: rem(100)
-    color: cl('white')
+    font-weight: 700
+    font-size: rem(13)
+    font-family: var(--font-rf-dewi)
+
+  &-trinity
+    height: rem(32)
+    padding: 0 rem(15)
+    border-radius: rem(100)
     font-weight: 700
     font-size: rem(13)
     font-family: var(--font-rf-dewi)

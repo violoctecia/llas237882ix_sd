@@ -1,0 +1,36 @@
+.balance
+  background: url(@/assets/img/other/balance.png) no-repeat
+  background-size: cover
+
+  &__value
+    font-size: rem(32)
+    margin-top: rem(20)
+
+    @include mobile
+      margin-top: 0
+      line-height: rem(32)
+
+  &__buttons
+    margin: rem(40) 0 rem(20) 0
+
+    @include mobile
+      margin: rem(20) 0 0 0
+
+  &__body
+    @include mobile
+      padding-left: rem(15)
+      padding-right: rem(15)
+
+  &__foot
+    padding: rem(12) rem(20)
+    min-height: rem(61)
+
+    @include mobile
+      padding-left: rem(15)
+      padding-right: rem(15)
+
+  &__head
+    @include mobile
+      flex-direction: row
+      width: 100%
+      justify-content: space-between

@@ -18,6 +18,9 @@
       width: rem(48)
       height: rem(48)
 
+    &.active
+      background: cl('orange')
+
   &__icons
     @include desktop-min
       margin-left: rem(145)
@@ -65,3 +68,6 @@
   &__location
     @include laptop
       display: none
+
+  &__exit
+    margin-left: rem(30)

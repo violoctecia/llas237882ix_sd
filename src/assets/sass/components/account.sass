@@ -1,0 +1,37 @@
+.account
+  padding-top: rem(109)
+  padding-bottom: rem(30)
+
+  &__container
+    max-width: rem(1303)
+
+  &__row
+    grid-template-columns: rem(280) 1fr 29%
+    margin-bottom: rem(20)
+    grid-gap: rem(20)
+
+    @include desktop
+      grid-template-columns: rem(245) 1fr rem(290)
+
+    @include laptop
+      grid-template-columns: 1fr 1fr
+      grid-template-areas: 'item1 item3' 'item2 item2'
+
+    @include mobile
+      grid-template-columns: 1fr
+      grid-template-areas: 'item1' 'item2' 'item3'
+
+  &__circle
+      left: 50%
+      transform: translateX(-50%)
+
+  &__block
+    &-1
+      @include laptop
+        grid-area: item1
+    &-2
+      @include laptop
+        grid-area: item2
+    &-3
+      @include laptop
+        grid-area: item3

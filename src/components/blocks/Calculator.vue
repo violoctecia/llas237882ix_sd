@@ -2,6 +2,8 @@
 import Slider from "@/components/blocks/Slider.vue";
 import { computed, ref } from "vue";
 
+defineProps(['title'])
+
 const items = ['3 месяца', '6 месяцев', 'Год'];
 
 const active = ref(0);
@@ -26,6 +28,10 @@ const calculatedIncome = computed(() => {
 <template>
   <div class="calc__form">
     <div class="calc__form-body flex flex-col items-center">
+      <div class="sub-gradient" v-if="title">
+        <span class="flex items-center cl-gray-4 font-13 font-rf-dewi font-bold">{{title}}</span>
+      </div>
+
       <ul class="calc__form-period flex justify-center">
         <li
             class="flex flex-center font-rf-dewi font-bold font-12 transition"
@@ -51,7 +57,7 @@ const calculatedIncome = computed(() => {
         Инвестировать
       </button>
       <div class="flex items-center justify-between">
-        <span class="cl-white font-13">Общий доход</span>
+        <span class="calc__form-label cl-white font-13">Общий доход</span>
         <span class="calc__form-income font-medium flex flex-center">+ {{ calculatedIncome }}</span>
       </div>
     </div>
