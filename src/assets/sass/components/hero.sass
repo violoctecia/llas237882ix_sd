@@ -54,9 +54,14 @@
       left: 50%
       margin-left: rem(-8)
       bottom: rem(-8)
+      transition: all 0.3s ease
 
       @include mobile
         display: none
+
+    &:hover
+      &:before
+        border-top-color: cl('orange-1')
 
   &__down
     margin-top: rem(17)

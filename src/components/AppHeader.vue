@@ -7,7 +7,14 @@ import IconEmail from "@/components/icons/IconEmail.vue";
 import IconPhone from "@/components/icons/IconPhone.vue";
 import IconExit from "@/components/icons/IconExit.vue";
 
+import {ref} from "vue";
+
 defineProps(['exit'])
+
+
+import ModalAuth from "@/components/ModalAuth.vue";
+
+const showModal = ref(false)
 </script>
 
 <template>
@@ -16,7 +23,7 @@ defineProps(['exit'])
 
       <router-link to="/" class="header__logo flex items-center">
         <img src="@/assets/img/logo.svg" width="40" height="40" alt="" loading="lazy">
-        <b class="cl-white font-rf-dewi ml-10 font-bold">Trud Club</b>
+        <b class="cl-white font-rf-dewi ml-10 font-bold">Verh Club</b>
       </router-link>
 
       <ul class="header__icons flex">
@@ -50,6 +57,7 @@ defineProps(['exit'])
         <button
             class="header__login button button-black flex-center"
             :class="exit ? 'active' : ''"
+            @click="showModal = true"
         >
           <IconUser />
         </button>
@@ -58,6 +66,8 @@ defineProps(['exit'])
           <IconExit />
         </button>
       </div>
+
+      <ModalAuth v-if="showModal" @close="showModal = false" />
 
     </div>
   </header>
