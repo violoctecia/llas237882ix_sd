@@ -25,22 +25,30 @@ export default {
     },
     min: {
       type: Number,
-      default: 0,
+      default: 100000,
     },
     max: {
       type: Number,
-      default: 100,
+      default: 20000000,
     },
   },
   data() {
     return {
       isDragging: false,
       currentValue: this.modelValue,
+      midValue: 1000000,
+      midPercentage: 50,
     };
   },
   computed: {
     thumbPosition() {
-      return ((this.currentValue - this.min) / (this.max - this.min)) * 100;
+      const range1 = this.midValue - this.min;
+      const range2 = this.max - this.midValue;
+      if (this.currentValue <= this.midValue) {
+        return ((this.currentValue - this.min) / range1) * this.midPercentage;
+      } else {
+        return this.midPercentage + ((this.currentValue - this.midValue) / range2) * (100 - this.midPercentage);
+      }
     },
   },
   methods: {
@@ -74,8 +82,19 @@ export default {
       const slider = this.$refs.thumb.parentElement;
       const rect = slider.getBoundingClientRect();
       const offsetX = clientX - rect.left;
-      let newValue = this.min + (offsetX / rect.width) * (this.max - this.min);
-      newValue = Math.round(newValue); // Округление до ближайшего целого числа
+      const percentage = (offsetX / rect.width) * 100;
+
+      let newValue;
+      const range1 = this.midValue - this.min;
+      const range2 = this.max - this.midValue;
+
+      if (percentage <= this.midPercentage) {
+        newValue = this.min + (percentage / this.midPercentage) * range1;
+      } else {
+        newValue = this.midValue + ((percentage - this.midPercentage) / (100 - this.midPercentage)) * range2;
+      }
+
+      newValue = Math.round(newValue);
       this.currentValue = Math.min(Math.max(newValue, this.min), this.max);
       this.$emit('update:modelValue', this.currentValue);
     },
