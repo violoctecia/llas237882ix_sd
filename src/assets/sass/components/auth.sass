@@ -1,6 +1,8 @@
 .auth
-  margin-top: rem(40)
   row-gap: rem(15)
+
+  &__desc
+    margin-bottom: rem(40)
 
   &__input
     width: rem(200)
@@ -30,6 +32,12 @@
     width: rem(47)
     height: rem(67)
     padding: 0
+    -moz-appearance: textfield
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
 
     &::placeholder
       color: cl('white')

@@ -34,10 +34,10 @@ const handleSubmit = async (event) => {
   <Modal>
     <div class="flex flex-col items-center">
       <h2 class="title title-gray mb-16">Авторизация</h2>
-      <p class="cl-white-1 text-center">Для входа в личный кабинет введите номер телефона</p>
     </div>
 
     <form v-if="!isCode" class="flex flex-col items-center auth" @submit="handleSubmit">
+      <p class="cl-white-1 text-center auth__desc">Для входа в личный кабинет введите номер телефона</p>
       <MaskInput
           v-model="phoneNumber"
           class="input auth__input"
@@ -51,11 +51,12 @@ const handleSubmit = async (event) => {
     </form>
 
     <form class="flex flex-col items-center auth" v-if="isCode">
+      <p class="cl-white-1 text-center auth__desc">На Ваш номер телефона было отправлено письмо с кодом. Введите его ниже</p>
       <div class="flex auth__codes">
-        <input type="text" placeholder="_" class="input auth__input auth__code">
-        <input type="text" placeholder="_" class="input auth__input auth__code">
-        <input type="text" placeholder="_" class="input auth__input auth__code">
-        <input type="text" placeholder="_" class="input auth__input auth__code">
+        <input type="number" placeholder="_" class="input auth__input auth__code">
+        <input type="number" placeholder="_" class="input auth__input auth__code">
+        <input type="number" placeholder="_" class="input auth__input auth__code">
+        <input type="number" placeholder="_" class="input auth__input auth__code">
       </div>
       <button class="button button-orange button-primary auth__button" type="submit">
         Войти
