@@ -4,8 +4,23 @@ import IconCircleRight from "@/components/icons/IconCircleRight.vue";
 import IconCircleLeft from "@/components/icons/IconCircleLeft.vue";
 import IconArwDown from "@/components/icons/IconArwDown.vue";
 import IconCircle from "@/components/icons/IconCircle.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import Cookies from "js-cookie";
+import ModalAuth from "@/components/ModalAuth.vue";
 
-const { sub, title, desc, button, info } = useHeroStore()
+const { sub, title, desc, button, info } = useHeroStore();
+const showModal = ref(false);
+const router = useRouter();
+
+const checkAuthAndNavigate = () => {
+  const sessionUuid = Cookies.get('sessionUuid');
+  if (!sessionUuid) {
+    showModal.value = true;
+  } else {
+    router.push('/account');
+  }
+};
 </script>
 
 <template>
@@ -17,7 +32,7 @@ const { sub, title, desc, button, info } = useHeroStore()
         </div>
         <h1 v-if="title" v-html="title" class="hero__title title leading" />
         <p v-if="desc" v-html="desc" class="cl-white-1" />
-        <router-link class="hero__button button button-primary button-orange" to="/account">{{ button }}</router-link>
+        <button class="hero__button button button-primary button-orange" @click="checkAuthAndNavigate">{{ button }}</button>
         <IconArwDown class="hero__down" />
       </div>
       <IconCircle class="hero__circle" />
@@ -36,5 +51,6 @@ const { sub, title, desc, button, info } = useHeroStore()
     </div>
     <IconCircleLeft class="hero__left absolute left-0 bottom-0 z--1" />
     <IconCircleRight class="hero__right absolute top-0 right-0 z--1" />
+    <ModalAuth v-if="showModal" @close="showModal = false" />
   </section>
 </template>

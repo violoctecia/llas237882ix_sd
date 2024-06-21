@@ -53,12 +53,12 @@ const handleLogout = async () => {
       </router-link>
 
       <ul class="header__icons flex">
-        <li><a class="header__icon flex flex-center" href="#"><IconWhatsapp class="transition" /></a></li>
-        <li><a class="header__icon flex flex-center" href="#"><IconTelegram class="transition" /></a></li>
+        <li><a class="header__icon flex flex-center" href="https://wa.me/79998381076" target="_blank"><IconWhatsapp class="transition" /></a></li>
+        <li><a class="header__icon flex flex-center" href="https://t.me/Verh500" target="_blank"><IconTelegram class="transition" /></a></li>
         <li class="header__location">
           <span class="flex items-center header__icon">
             <IconLocation />
-            <b class="font-medium font-13 ml-10">Москва, Московская д.6</b>
+            <b class="font-medium font-13 ml-10">Московская область, д. Путилково</b>
           </span>
         </li>
       </ul>
@@ -70,12 +70,12 @@ const handleLogout = async () => {
               <IconEmail class="mr-10" />
               trudsystem@ya.ru
             </a>
-            <a href="#" class="link-white-1 leading font-12">@trudsystem</a>
+            <a href="https://t.me/Cepen1000" target="_blank" class="link-white-1 leading font-12">@Cepen1000</a>
           </div>
           <div class="header__contact flex flex-col items-end">
-            <a class="flex items-center font-medium link-white font-13" href="mailto:trudsystem@ya.ru">
+            <a class="flex items-center font-medium link-white font-13" href="tel:89998381076">
               <IconPhone class="mr-10" />
-              +7 (850) 000-00-00
+              8 (999) 838-10-76
             </a>
             <a href="#" class="link-white-1 leading font-12">Заказать звонок</a>
           </div>
