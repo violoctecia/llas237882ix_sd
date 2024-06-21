@@ -4,8 +4,14 @@
   @include laptop
     padding: rem(80) 0
 
+  @include mobile
+    padding-bottom: 0
+
   &__frame
     padding: rem(60) rem(20)
+
+    @include mobile
+      padding: rem(60) rem(10)
 
   &__title
     margin: rem(10) 0
@@ -24,7 +30,7 @@
     margin-top: rem(60)
 
     &-body
-      padding: rem(20) 0
+      padding: rem(20)
 
     &-foot
       padding: rem(12) rem(20)
@@ -51,6 +57,9 @@
       border-radius: rem(50)
       width: rem(200)
       margin: 0 auto
+
+      @include mobile
+        width: rem(247)
 
     &-period
       margin-bottom: rem(28)
@@ -114,3 +123,6 @@
         font-size: rem(12)
         border-radius: 0
         padding: 0
+    .slider-container
+      @include mobile
+       width: rem(247)

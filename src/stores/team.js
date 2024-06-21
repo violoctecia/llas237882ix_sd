@@ -1,8 +1,8 @@
 import {defineStore} from 'pinia'
 
 export const useTeamStore = defineStore('team', () => {
-  const sub = 'Офис - Москва, Московская д.6'
-  const title = 'Мы не прячемся свои лица'
+  const sub = 'Офис - Московская область, д. Путилково, БЦ «Гринвуд»'
+  const title = 'Мы не прячем свои лица'
   const items = [
     {
       name: 'Доганин Алексей',

@@ -22,7 +22,7 @@ const {title, sub, desc} = useCalcStore()
           <h2 v-if="title" v-html="title" class="calc__title title leading"/>
           <p v-if="desc" v-html="desc" class="cl-white-1" />
 
-          <Calculator />
+          <Calculator :main="true" />
 
         </div>
         <picture class="absolute absolute-full z--1">

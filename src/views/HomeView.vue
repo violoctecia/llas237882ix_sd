@@ -18,7 +18,7 @@ import AppHeader from "@/components/AppHeader.vue";
     <About />
     <Calc />
     <Progress />
-    <Team />
+    <!--    <Team />-->
     <Reviews />
     <Faq />
     <Contact />

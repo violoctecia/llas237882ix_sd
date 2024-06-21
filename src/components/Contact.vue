@@ -24,10 +24,11 @@ const {title, sub} = useContactStore()
       <div class="contact__row grid">
         <div class="contact__map flex flex-col overflow-hidden radius-10 relative">
           <div class="contact__location flex flex-col relative">
-            <p class="flex items-center cl-orange font-semibold"><IconLocationRed class="mr-10" />г. Москва</p>
-            <p class="font-medium font-13">Московская, д.6</p>
+            <p class="flex items-center cl-orange font-semibold"><IconLocationRed class="mr-10" />Московская область</p>
+            <p class="font-medium font-13">д. Путилково, БЦ «Гринвуд»</p>
           </div>
-          <iframe class="absolute absolute-full" src="https://yandex.ru/map-widget/v1/?um=constructor%3A1438393557aeecbbb4d5eea38acc6fdd9a759dbad88a379a4893fe4846e73a80&amp;source=constructor" width="100%" height="100%" frameborder="0"></iframe>
+
+          <iframe class="absolute absolute-full" src="https://yandex.ru/map-widget/v1/?um=constructor%3Adc6b8038ecd8f1560728fba1976911da3bbba0159ea70bebd63eb5bcde534fe3&amp;source=constructor" width="100%" height="100%" frameborder="0"></iframe>
         </div>
 
         <div class="flex flex-col">
@@ -45,10 +46,10 @@ const {title, sub} = useContactStore()
 
           <div class="contact__info radius-10 overflow-hidden mt-10">
             <h3 class="contact__info-title font-medium">Связаться с нами</h3>
-            <p class="contact__info-item flex items-center"><span>Электронная почта:</span> <a href="#" class="link-white font-medium">trudsystem@ya.ru</a></p>
-            <p class="contact__info-item flex items-center"><span>Телефон:</span> <a href="#" class="link-white font-medium">+7 (850) 000-00-00</a></p>
-            <p class="contact__info-item flex items-center"><span>Telegram:</span> <a href="#" class="link-white font-medium">@trudsystem</a></p>
-            <p class="contact__info-item flex items-center"><span>WhatsApp</span> <a href="#" class="link-white font-medium">+7 (850) 000-00-00</a></p>
+            <p class="contact__info-item flex items-center"><span>Telegram канал:</span> <a href="https://t.me/Verh500" target="_blank" class="link-white font-medium">@Verh500</a></p>
+            <p class="contact__info-item flex items-center"><span>Телефон:</span> <a href="tel:89998381076" class="link-white font-medium">8 (999) 838-10-76</a></p>
+            <p class="contact__info-item flex items-center"><span>Telegram:</span> <a href="https://t.me/Cepen1000" target="_blank" class="link-white font-medium">@Cepen1000</a></p>
+            <p class="contact__info-item flex items-center"><span>WhatsApp</span> <a href="https://wa.me/79998381076" target="_blank" class="link-white font-medium">8 (999) 838-10-76</a></p>
           </div>
         </div>
       </div>

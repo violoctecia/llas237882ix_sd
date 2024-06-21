@@ -17,7 +17,7 @@ const { sub, title, desc, button, info } = useHeroStore()
         </div>
         <h1 v-if="title" v-html="title" class="hero__title title leading" />
         <p v-if="desc" v-html="desc" class="cl-white-1" />
-        <button class="hero__button button button-primary button-orange">{{ button }}</button>
+        <router-link class="hero__button button button-primary button-orange" to="/account">{{ button }}</router-link>
         <IconArwDown class="hero__down" />
       </div>
       <IconCircle class="hero__circle" />
