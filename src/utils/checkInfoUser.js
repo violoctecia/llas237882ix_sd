@@ -6,7 +6,7 @@ export const userData = ref(null);
 
 export const fetchUserData = async (router) => {
     try {
-        const sessionUuid = Cookies.get('sessionUuid'); // Получаем sessionUuid из куки
+        const sessionUuid = Cookies.get('sessionUuid');
 
         if (!sessionUuid) {
             console.log('Session UUID not found');
@@ -26,7 +26,6 @@ export const fetchUserData = async (router) => {
         } else {
             userData.value = response.data.user;
             console.log('User data loaded:', response.data.user);
-            // Проверка текущего маршрута перед перенаправлением
             if (router.currentRoute.value.name !== 'account') {
                 router.push({ name: 'account' });
             }

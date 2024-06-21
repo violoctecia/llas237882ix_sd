@@ -7,8 +7,8 @@ import Cookies from "js-cookie";
 defineProps(['title'])
 
 const items = ['3 месяца', '6 месяцев', 'Год'];
-const periods = [3, 6, 12]; // в месяцах
-const percentages = [10, 20, 40]; // процент доходности
+const periods = [3, 6, 12];
+const percentages = [10, 20, 40];
 
 const active = ref(0);
 const sliderValue = ref(300000);

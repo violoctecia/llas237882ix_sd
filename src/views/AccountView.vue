@@ -13,13 +13,13 @@ import {useHistoryStore} from "@/stores/history.js";
 
 const router = useRouter();
 const balance = ref(0);
-const investments = ref([]); // добавляем investments
+const investments = ref([]);
 const historyStore = useHistoryStore();
 
 onMounted(async () => {
   await fetchUserData(router);
   if (userData.value) {
-    console.log('User data:', userData.value); // Логирование полученных данных
+    console.log('User data:', userData.value);
     balance.value = userData.value.balance || 0;
     investments.value = userData.value.investments || [];
     historyStore.setItems(userData.value.history?.map(item => ({
