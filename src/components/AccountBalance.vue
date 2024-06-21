@@ -7,8 +7,12 @@ const props = defineProps({
     required: true,
   },
 });
+import ModalReplenish from "@/components/ModalReplenish.vue";
+import ModalWithdrawal from "@/components/ModalWithdrawal.vue";
+import {ref} from "vue";
 
-
+const showReplenish = ref(false)
+const showWithdrawal = ref(false)
 </script>
 
 <template>
@@ -23,14 +27,17 @@ const props = defineProps({
         </div>
       </div>
 
-      <div class="balance__buttons">
-        <button class="button button-orange button-trinity mr-10">Пополнить</button>
-        <button class="button button-border button-trinity">Вывести</button>
+      <div class="balance__buttons flex justify-start">
+        <button class="button button-orange button-trinity mr-10" @click="showReplenish = true">Пополнить</button>
+        <button class="button button-border button-trinity relative" @click="showWithdrawal = true">Вывести</button>
       </div>
     </div>
     <div class="balance__foot border-top-1">
       <p class="font-12 cl-white-1">Всего заработано</p>
       <p class="font-13 font-medium">₽0</p>
     </div>
+
+    <ModalReplenish v-if="showReplenish" @close="showReplenish = false" />
+    <ModalWithdrawal v-if="showWithdrawal" @close="showWithdrawal = false" />
   </div>
 </template>
