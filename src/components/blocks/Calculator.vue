@@ -26,8 +26,9 @@ const formattedSliderValue = computed(() => {
 });
 
 const calculatedIncome = computed(() => {
-  const selectedPercentage = percentages[active.value];
-  const income = sliderValue.value + (sliderValue.value / 100) * selectedPercentage;
+  const periods = [3, 6, 12]; // в месяцах
+  const selectedPeriod = periods[active.value];
+  const income = sliderValue.value + (sliderValue.value / 12) * selectedPeriod;
   const roundedIncome = Math.round(income);
   return roundedIncome.toLocaleString('de-DE') + '₽';
 });
@@ -36,7 +37,7 @@ const calculatedProfit = computed(() => {
   const income = sliderValue.value / 12;
   const roundedIncome = Math.round(income);
   return roundedIncome.toLocaleString('de-DE') + '₽';
-});
+})
 
 const invest = async () => {
   const sessionUuid = Cookies.get('sessionUuid');
