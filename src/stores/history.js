@@ -1,15 +1,13 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
 export const useHistoryStore = defineStore('history', () => {
-  const items = [
-    {date: '27.11.2023', value: '+40 000₽', type: 'Пополнение'},
-    {date: '27.11.2023', value: '+40 000₽', type: 'Пополнение'},
-    {date: '27.11.2023', value: '-40 000₽', type: 'Вывод', output: true},
-    {date: '27.11.2023', value: '+40 000₽', type: 'Пополнение'},
-    {date: '27.11.2023', value: '-400 000₽ ', type: 'Вывод', output: true},
-    {date: '27.11.2023', value: '+40 000₽', type: 'Пополнение'},
-    {date: '27.11.2023', value: '+40 000₽', type: 'Пополнение'},
-  ]
+  const items = ref([]);
 
-  return {items}
-})
+  const setItems = (newItems) => {
+    console.log('Setting new history items:', newItems); // Логирование новых элементов истории
+    items.value = newItems;
+  };
+
+  return { items, setItems };
+});

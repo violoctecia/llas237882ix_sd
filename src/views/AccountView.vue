@@ -6,22 +6,46 @@ import Calculator from "@/components/blocks/Calculator.vue";
 import CircleTopLeft from "@/components/icons/CircleTopLeft.vue";
 import CircleTopCenter from "@/components/icons/CircleTopCenter.vue";
 import AppHeader from "@/components/AppHeader.vue";
+import {ref, onMounted} from "vue";
+import {fetchUserData, userData} from "@/utils/checkInfoUser.js";
+import {useRouter} from "vue-router";
+import {useHistoryStore} from "@/stores/history.js";
+
+const router = useRouter();
+const balance = ref(0);
+const investments = ref([]); // добавляем investments
+const historyStore = useHistoryStore();
+
+onMounted(async () => {
+  await fetchUserData(router);
+  if (userData.value) {
+    console.log('User data:', userData.value); // Логирование полученных данных
+    balance.value = userData.value.balance || 0;
+    investments.value = userData.value.investments || [];
+    historyStore.setItems(userData.value.history?.map(item => ({
+      date: new Date(item.createdAt).toLocaleDateString(),
+      value: item.amount > 0 ? `+${item.amount}₽` : `${item.amount}₽`,
+      type: item.action,
+      output: item.amount < 0
+    })) || []);
+  }
+});
 </script>
 
 <template>
   <main>
-    <AppHeader :exit="true" />
+    <AppHeader :exit="true"/>
     <section class="account">
       <div class="account__container container flex flex-col">
         <div class="account__row grid">
-          <AccountBalance class="account__block-1" />
-          <AccountDeposit class="account__block-2" />
-          <Calculator :title="'Увеличить вклад'" class="calc-primary account__block-3" />
+          <AccountBalance :balance="balance" :investments="investments" class="account__block-1"/>
+          <AccountDeposit :investments="investments" class="account__block-2"/>
+          <Calculator :title="'Увеличить вклад'" class="calc-primary account__block-3"/>
         </div>
-        <AccountHistory />
+        <AccountHistory/>
       </div>
     </section>
-    <CircleTopCenter class="account__circle absolute left-0 top-0 z--1" />
-    <CircleTopLeft class="absolute left-0 top-0 z--1" />
+    <CircleTopCenter class="account__circle absolute left-0 top-0 z--1"/>
+    <CircleTopLeft class="absolute left-0 top-0 z--1"/>
   </main>
 </template>

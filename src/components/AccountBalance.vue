@@ -1,4 +1,13 @@
 <script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  balance: {
+    type: Number,
+    required: true,
+  },
+});
+
 
 </script>
 
@@ -9,7 +18,9 @@
         <div class="sub-gradient">
           <span class="flex items-center cl-gray-4 font-13 font-rf-dewi font-bold">Баланс</span>
         </div>
-        <div class="balance__value font-bold font-rf-dewi"><span class="cl-orange">₽</span>0</div>
+        <div class="balance__value font-bold font-rf-dewi">
+          <span class="cl-orange">₽</span>{{ props.balance }}
+        </div>
       </div>
 
       <div class="balance__buttons">

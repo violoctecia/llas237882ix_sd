@@ -1,11 +1,18 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { MaskInput } from 'vue-3-mask';
 import Modal from "@/components/Modal.vue";
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { fetchUserData } from "@/utils/checkInfoUser.js";
 
 const phoneNumber = ref('');
 const isError = ref(false);
 const isCode = ref(false);
+const codeError = ref('');
+const smsCode = ref(['', '', '', '', '', '']);
+const router = useRouter();
 
 const isPhoneNumberValid = computed(() => {
   const sanitizedPhoneNumber = phoneNumber.value.replace(/\D/g, '');
@@ -26,8 +33,95 @@ const handleSubmit = async (event) => {
   const sanitizedPhoneNumber = phoneNumber.value.replace(/\D/g, '');
   console.log('Sending POST:', sanitizedPhoneNumber);
 
-  isCode.value=!isCode.value
+  await getCode(sanitizedPhoneNumber);
 };
+
+const getCode = async (sanitizedPhoneNumber) => {
+  try {
+    const sessionUuid = Cookies.get('sessionUuid');
+    if (sessionUuid) {
+      // Если sessionUuid уже существует, используем его для автоматического входа
+      console.log('Session UUID found in cookies:', sessionUuid);
+      await fetchUserData(router);
+      return;
+    }
+
+    const response = await axios.post('/getSms', {
+      phone_number: sanitizedPhoneNumber,
+    });
+
+    if (response.data.success) {
+      isCode.value = true;
+      console.log('Code sent successfully');
+    } else {
+      codeError.value = response.data.error || 'Failed to send SMS code';
+      console.log('Error:', response.data.error);
+    }
+  } catch (error) {
+    codeError.value = 'Failed to send SMS code';
+    console.log('Error:', error);
+  }
+};
+
+const handleCheckCode = async (event) => {
+  event.preventDefault();
+
+  const sanitizedPhoneNumber = phoneNumber.value.replace(/\D/g, '');
+  const code = smsCode.value.join('');
+
+  try {
+    const response = await axios.post('/checkSms', {
+      phone_number: sanitizedPhoneNumber,
+      code: code,
+    });
+
+    console.log(response);
+
+    if (response.data.success) {
+      console.log('Login successful');
+      Cookies.set('sessionUuid', response.data.sessionUuid, { expires: 0.0208 });
+      await fetchUserData(router);
+    } else {
+      codeError.value = 'Invalid code or code expired';
+      console.log('Error:', 'Invalid code or code expired');
+    }
+  } catch (error) {
+    codeError.value = 'Failed to check SMS code';
+    console.log('Error:', error);
+  }
+};
+
+const handleInput = (event, index) => {
+  const value = event.target.value;
+  if (/^\d$/.test(value)) {
+    smsCode.value[index] = value;
+    if (index < 5) {
+      document.getElementById(`sms-code-${index + 1}`).focus();
+    }
+  } else if (value === '') {
+    smsCode.value[index] = '';
+  } else {
+    event.target.value = '';
+  }
+};
+
+const handleKeyDown = (event, index) => {
+  if (event.key === 'Backspace' && smsCode.value[index] === '') {
+    if (index > 0) {
+      document.getElementById(`sms-code-${index - 1}`).focus();
+      smsCode.value[index - 1] = '';
+    }
+  }
+};
+
+onMounted(async () => {
+  const sessionUuid = Cookies.get('sessionUuid');
+  if (sessionUuid) {
+    await fetchUserData(router);
+  } else {
+    console.log('Session not found, needs log in.');
+  }
+});
 </script>
 
 <template>
@@ -48,19 +142,29 @@ const handleSubmit = async (event) => {
         Получить код
       </button>
       <p v-if="isError" class="cl-orange">Введите номер телефона</p>
+      <p v-if="codeError" class="cl-orange">{{ codeError }}</p>
     </form>
 
-    <form class="flex flex-col items-center auth" v-if="isCode">
-      <p class="cl-white-1 text-center auth__desc">На Ваш номер телефона было отправлено письмо с кодом. Введите его ниже</p>
+    <form class="flex flex-col items-center auth" v-if="isCode" @submit="handleCheckCode">
+      <p class="cl-white-1 text-center auth__desc">На Ваш номер телефона было отправлено письмо с кодом. Введите его
+        ниже</p>
       <div class="flex auth__codes">
-        <input type="number" placeholder="_" class="input auth__input auth__code">
-        <input type="number" placeholder="_" class="input auth__input auth__code">
-        <input type="number" placeholder="_" class="input auth__input auth__code">
-        <input type="number" placeholder="_" class="input auth__input auth__code">
+        <input
+            v-for="(digit, index) in smsCode"
+            :key="index"
+            :id="'sms-code-' + index"
+            v-model="smsCode[index]"
+            type="text"
+            maxlength="1"
+            class="input auth__input auth__code"
+            @input="handleInput($event, index)"
+            @keydown="handleKeyDown($event, index)"
+        />
       </div>
       <button class="button button-orange button-primary auth__button" type="submit">
         Войти
       </button>
+      <p v-if="codeError" class="cl-orange">{{ codeError }}</p>
     </form>
   </Modal>
 </template>

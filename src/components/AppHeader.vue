@@ -7,20 +7,46 @@ import IconEmail from "@/components/icons/IconEmail.vue";
 import IconPhone from "@/components/icons/IconPhone.vue";
 import IconExit from "@/components/icons/IconExit.vue";
 
-import {ref} from "vue";
+import { ref } from "vue";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from 'vue-router';
 
-defineProps(['exit'])
-
+defineProps(['exit']);
 
 import ModalAuth from "@/components/ModalAuth.vue";
 
-const showModal = ref(false)
+const showModal = ref(false);
+const router = useRouter();
+
+const handleLogout = async () => {
+  try {
+    const sessionUuid = Cookies.get('sessionUuid');
+    if (!sessionUuid) {
+      console.log('Session UUID not found');
+      return;
+    }
+
+    const response = await axios.post('/logout', {
+      sessionUuid: sessionUuid,
+    });
+
+    if (response.data.success) {
+      Cookies.remove('sessionUuid');
+      console.log('Logout successful');
+      router.push({ name: 'home' });
+    } else {
+      console.log('Error:', 'Failed to logout');
+    }
+  } catch (error) {
+    console.log('Error:', error);
+  }
+};
 </script>
 
 <template>
   <header class="header absolute z-2">
     <div class="header__container container flex items-center justify-between">
-
       <router-link to="/" class="header__logo flex items-center">
         <img src="@/assets/img/logo.svg" width="40" height="40" alt="" loading="lazy">
         <b class="cl-white font-rf-dewi ml-10 font-bold">Verh Club</b>
@@ -62,13 +88,12 @@ const showModal = ref(false)
           <IconUser />
         </button>
 
-        <button v-if="exit" class="header__exit button">
+        <button v-if="exit" class="header__exit button" @click="handleLogout">
           <IconExit />
         </button>
       </div>
 
       <ModalAuth v-if="showModal" @close="showModal = false" />
-
     </div>
   </header>
 </template>
