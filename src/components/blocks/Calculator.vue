@@ -37,7 +37,7 @@ const calculatedIncome = computed(() => {
 });
 
 const calculatedProfit = computed(() => {
-  const income = sliderValue.value / 12;
+  const income = (sliderValue.value / 12) * periods[active.value];
   const roundedIncome = Math.round(income);
   return roundedIncome.toLocaleString('de-DE') + '₽';
 });
@@ -59,7 +59,6 @@ const invest = async () => {
   }
 
   sliderValue.value = currentInputValue;
-
 
   try {
     const requestData = {
@@ -90,7 +89,6 @@ const handleInvestClick = () => {
   }
 
   sliderValue.value = currentInputValue;
-
 
   if (props.main) {
     showModal.value = true;
@@ -175,10 +173,8 @@ onMounted(() => {
               :value="formattedSliderValue"
               @input="handleInputChange"
               style="background: transparent; border: none; text-align: center; font-family: var(--font-rf-dewi); font-weight: 700; color: var(--color-white);"
-              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
           />
         </div>
-
       </div>
 
       <Slider v-model="sliderValue" :min="minAmount" :max="maxAmount" class="mt-10"/>
@@ -199,7 +195,6 @@ onMounted(() => {
         <span class="calc__form-label cl-white font-13">Прибыль</span>
         <span class="calc__form-income font-medium flex flex-center">{{ calculatedProfit }}/мес</span>
       </div>
-
     </div>
 
     <div class="calc__form-foot flex flex-col" v-if="investmentError">
@@ -220,6 +215,7 @@ onMounted(() => {
   input {
     display: flex;
     min-width: 54px;
+    max-width: 100%;
     font-family: var(--font-rf-dewi);
     font-weight: 700;
     color: var(--color-white);

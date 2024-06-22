@@ -40,7 +40,6 @@ const getCode = async (sanitizedPhoneNumber) => {
   try {
     const sessionUuid = Cookies.get('sessionUuid');
     if (sessionUuid) {
-      console.log('Session UUID found in cookies:', sessionUuid);
       await fetchUserData(router);
       return;
     }
@@ -48,12 +47,10 @@ const getCode = async (sanitizedPhoneNumber) => {
     const response = await axios.post('/getSms', {
       phone_number: sanitizedPhoneNumber,
     });
-
     if (response.data.success) {
       isCode.value = true;
-      console.log('Code sent successfully');
     } else {
-      codeError.value = response.data.error || 'Failed to send SMS code';
+      codeError.value = response.data.error || 'Ошибка';
       console.log('Error:', response.data.error);
     }
   } catch (error) {
@@ -62,9 +59,7 @@ const getCode = async (sanitizedPhoneNumber) => {
   }
 };
 
-const handleCheckCode = async (event) => {
-  event.preventDefault();
-
+const handleCheckCode = async () => {
   const sanitizedPhoneNumber = phoneNumber.value.replace(/\D/g, '');
   const code = smsCode.value.join('');
 
@@ -90,17 +85,27 @@ const handleCheckCode = async (event) => {
   }
 };
 
-const handleInput = (event, index) => {
+const handleInput = async (event, index) => {
   const value = event.target.value;
   if (/^\d$/.test(value)) {
     smsCode.value[index] = value;
     if (index < 5) {
       document.getElementById(`sms-code-${index + 1}`).focus();
+    } else {
+      await handleCheckCode();
     }
   } else if (value === '') {
     smsCode.value[index] = '';
   } else {
     event.target.value = '';
+  }
+};
+
+const handlePaste = async (event) => {
+  const paste = (event.clipboardData || window.clipboardData).getData('text');
+  if (/^\d{6}$/.test(paste)) {
+    smsCode.value = paste.split('');
+    await handleCheckCode();
   }
 };
 
@@ -148,11 +153,12 @@ onMounted(async () => {
             :key="index"
             :id="'sms-code-' + index"
             v-model="smsCode[index]"
-            type="text"
+            type="number"
             maxlength="1"
             class="input auth__input auth__code"
             @input="handleInput($event, index)"
             @keydown="handleKeyDown($event, index)"
+            @paste="handlePaste"
         />
       </div>
       <button class="button button-orange button-primary auth__button" type="submit">
