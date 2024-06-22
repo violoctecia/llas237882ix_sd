@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { MaskInput } from 'vue-3-mask';
 import Modal from "@/components/Modal.vue";
 import { useRouter } from 'vue-router';
@@ -13,6 +13,7 @@ const isCode = ref(false);
 const codeError = ref('');
 const smsCode = ref(['', '', '', '', '', '']);
 const router = useRouter();
+const inputRefs = ref([]);
 
 const isPhoneNumberValid = computed(() => {
   const sanitizedPhoneNumber = phoneNumber.value.replace(/\D/g, '');
@@ -49,6 +50,9 @@ const getCode = async (sanitizedPhoneNumber) => {
     });
     if (response.data.success) {
       isCode.value = true;
+      nextTick(() => {
+        inputRefs.value[0]?.focus();
+      });
     } else {
       codeError.value = response.data.error || 'Ошибка';
       console.log('Error:', response.data.error);
@@ -90,7 +94,7 @@ const handleInput = async (event, index) => {
   if (/^\d$/.test(value)) {
     smsCode.value[index] = value;
     if (index < 5) {
-      document.getElementById(`sms-code-${index + 1}`).focus();
+      inputRefs.value[index + 1]?.focus();
     } else {
       await handleCheckCode();
     }
@@ -112,7 +116,7 @@ const handlePaste = async (event) => {
 const handleKeyDown = (event, index) => {
   if (event.key === 'Backspace' && smsCode.value[index] === '') {
     if (index > 0) {
-      document.getElementById(`sms-code-${index - 1}`).focus();
+      inputRefs.value[index - 1]?.focus();
       smsCode.value[index - 1] = '';
     }
   }
@@ -121,6 +125,10 @@ const handleKeyDown = (event, index) => {
 onMounted(async () => {
   await fetchUserData(router);
 });
+
+const setInputRef = (el, index) => {
+  inputRefs.value[index] = el;
+};
 </script>
 
 <template>
@@ -153,12 +161,16 @@ onMounted(async () => {
             :key="index"
             :id="'sms-code-' + index"
             v-model="smsCode[index]"
-            type="number"
+            type="text"
+            inputmode="numeric" pattern="[0-9]*"
+            name="smsCode"
+            autocomplete="one-time-code"
             maxlength="1"
             class="input auth__input auth__code"
             @input="handleInput($event, index)"
             @keydown="handleKeyDown($event, index)"
             @paste="handlePaste"
+            :ref="el => setInputRef(el, index)"
         />
       </div>
       <button class="button button-orange button-primary auth__button" type="submit">

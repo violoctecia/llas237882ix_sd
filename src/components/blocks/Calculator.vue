@@ -170,6 +170,7 @@ onMounted(() => {
               ref="inputRef"
               id="sliderInput"
               type="text"
+              inputmode="numeric" pattern="[0-9]*"
               :value="formattedSliderValue"
               @input="handleInputChange"
               style="background: transparent; border: none; text-align: center; font-family: var(--font-rf-dewi); font-weight: 700; color: var(--color-white);"
