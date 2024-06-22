@@ -9,21 +9,17 @@ export const fetchUserData = async (router) => {
         const sessionUuid = Cookies.get('sessionUuid');
 
         if (!sessionUuid) {
-            console.log('Session UUID not found');
             router.push({ name: 'home' });
             return;
         }
 
         const response = await axios.post('/getMe', { sessionUuid });
-        console.log('Response data:', response.data);
 
         if (response.data.error) {
-            console.log('Not authenticated');
             Cookies.remove('sessionUuid');
             router.push({ name: 'home' });
         } else {
             userData.value = response.data.user;
-            console.log('User data loaded:', response.data.user);
             if (router.currentRoute.value.name !== 'account') {
                 router.push({ name: 'account' });
             }

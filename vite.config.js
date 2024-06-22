@@ -10,6 +10,11 @@ export default defineConfig({
     vue(),
     VueDevTools(),
   ],
+  server: {
+    host: '0.0.0.0', // Укажите серверу слушать на всех IP-адресах
+    port: 5173, // Укажите порт, на котором будет работать dev server
+    // open: true, // Открыть браузер после запуска сервера (необязательно)
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

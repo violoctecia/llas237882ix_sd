@@ -9,12 +9,13 @@ const props = defineProps(['title', 'main']);
 
 const items = ['3 месяца', '6 месяцев', 'Год'];
 const periods = [3, 6, 12];
-const percentages = [10, 20, 40];
+const percentages = [25, 50, 100];
 
 const active = ref(0);
 const sliderValue = ref(300000);
 const investmentError = ref('');
 const showModal = ref(false);
+const inputRef = ref(null);
 
 const minAmount = 100000;
 const maxAmount = 20000000;
@@ -49,30 +50,48 @@ const invest = async () => {
     return;
   }
 
+  const currentInputValue = parseInt(inputRef.value?.value.replace(/\D/g, ''));
+  console.log(`Current input value: ${currentInputValue}`);
+
+  if (isNaN(currentInputValue) || currentInputValue < minAmount || currentInputValue > maxAmount) {
+    investmentError.value = `Вклад должен быть в пределах от ${minAmount.toLocaleString('de-DE')}₽ до ${maxAmount.toLocaleString('de-DE')}₽`;
+    return;
+  }
+
+  sliderValue.value = currentInputValue;
+
+
   try {
     const requestData = {
       amount: sliderValue.value,
       type: active.value + 1,
       sessionUuid: sessionUuid,
     };
-    console.log('Request data:', requestData);
 
     const response = await axios.post('/invest', requestData);
 
     if (response.data.success) {
       investmentError.value = '';
-      console.log('Инвестиция успешно создана.');
     } else {
       investmentError.value = 'Недостаточный баланс';
-      console.log('Ошибка:', response.data.error);
     }
   } catch (error) {
     investmentError.value = 'Произошла ошибка при инвестировании.';
-    console.log('Ошибка:', error);
   }
 };
 
 const handleInvestClick = () => {
+  const currentInputValue = parseInt(inputRef.value?.value.replace(/\D/g, ''));
+  console.log(`Current input value: ${currentInputValue}`);
+
+  if (isNaN(currentInputValue) || currentInputValue < minAmount || currentInputValue > maxAmount) {
+    investmentError.value = `Вклад должен быть в пределах от ${minAmount.toLocaleString('de-DE')}₽ до ${maxAmount.toLocaleString('de-DE')}₽`;
+    return;
+  }
+
+  sliderValue.value = currentInputValue;
+
+
   if (props.main) {
     showModal.value = true;
   } else {
@@ -80,14 +99,13 @@ const handleInvestClick = () => {
   }
 };
 
-// Синхронизация значения инпута со значением sliderValue
 const handleInputChange = (event) => {
   const value = parseInt(event.target.value.replace(/\D/g, ''));
   if (!isNaN(value)) {
     if (value < minAmount) {
-      investmentError.value = `Минимальная сумма для инвестирования ${minAmount.toLocaleString('de-DE')}₽`;
+      investmentError.value = `Минимальный вклад ${minAmount.toLocaleString('de-DE')}₽`;
     } else if (value > maxAmount) {
-      investmentError.value = `Максимальная сумма для инвестирования ${maxAmount.toLocaleString('de-DE')}₽`;
+      investmentError.value = `Максимальный вклад ${maxAmount.toLocaleString('de-DE')}₽`;
     } else {
       investmentError.value = '';
       sliderValue.value = value;
@@ -95,10 +113,9 @@ const handleInputChange = (event) => {
   }
 };
 
-// Следим за изменением значения sliderValue и форматируем его для инпута
 watch(sliderValue, (newValue) => {
   nextTick(() => {
-    const inputElement = document.getElementById('sliderInput');
+    const inputElement = inputRef.value;
     if (inputElement) {
       inputElement.value = newValue.toLocaleString('de-DE');
       adjustInputWidth(inputElement);
@@ -106,7 +123,6 @@ watch(sliderValue, (newValue) => {
   });
 });
 
-// Функция для динамического изменения ширины инпута
 const adjustInputWidth = (inputElement) => {
   const tempSpan = document.createElement('span');
   tempSpan.style.visibility = 'hidden';
@@ -120,10 +136,9 @@ const adjustInputWidth = (inputElement) => {
   document.body.removeChild(tempSpan);
 };
 
-// Инициализация ширины инпута при монтировании компонента
 onMounted(() => {
   nextTick(() => {
-    const inputElement = document.getElementById('sliderInput');
+    const inputElement = inputRef.value;
     if (inputElement) {
       adjustInputWidth(inputElement);
     }
@@ -151,15 +166,19 @@ onMounted(() => {
       </ul>
 
       <div class="form-input calc__form-value font-bold font-rf-dewi flex flex-center">
-        <b class="cl-orange">₽&nbsp;</b>
-        <input
-            id="sliderInput"
-            type="text"
-            :value="formattedSliderValue"
-            @input="handleInputChange"
-            style="background: transparent; border: none; text-align: center; font-family: var(--font-rf-dewi); font-weight: 700; color: var(--color-white);"
-            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-        />
+        <div class="position flex flex-center">
+          <b class="cl-orange">₽&nbsp;</b>
+          <input
+              ref="inputRef"
+              id="sliderInput"
+              type="text"
+              :value="formattedSliderValue"
+              @input="handleInputChange"
+              style="background: transparent; border: none; text-align: center; font-family: var(--font-rf-dewi); font-weight: 700; color: var(--color-white);"
+              onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+          />
+        </div>
+
       </div>
 
       <Slider v-model="sliderValue" :min="minAmount" :max="maxAmount" class="mt-10"/>
@@ -171,7 +190,7 @@ onMounted(() => {
         Инвестировать
       </button>
 
-      <div class="flex items-center justify-between" >
+      <div class="flex items-center justify-between">
         <span class="calc__form-label cl-white font-13">Общий доход</span>
         <span class="calc__form-income font-medium flex flex-center">+ {{ calculatedIncome }}</span>
       </div>
@@ -204,6 +223,7 @@ onMounted(() => {
     font-family: var(--font-rf-dewi);
     font-weight: 700;
     color: var(--color-white);
+    width: 100%;
   }
 
   input:focus {
@@ -212,6 +232,16 @@ onMounted(() => {
 
   input:focus-visible {
     outline: none;
+  }
+}
+
+.position {
+  position: relative;
+
+  b {
+    color: var(--color-orange);
+    position: absolute;
+    left: -15px;
   }
 }
 </style>
