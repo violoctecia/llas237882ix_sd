@@ -6,6 +6,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  totalEarned: {
+    type: Number,
+    required: true,
+  },
 });
 import ModalReplenish from "@/components/ModalReplenish.vue";
 import ModalWithdrawal from "@/components/ModalWithdrawal.vue";
@@ -34,7 +38,7 @@ const showWithdrawal = ref(false)
     </div>
     <div class="balance__foot border-top-1">
       <p class="font-12 cl-white-1">Всего заработано</p>
-      <p class="font-13 font-medium">₽0</p>
+      <p class="font-13 font-medium">₽{{props.totalEarned || 0}} </p>
     </div>
 
     <ModalReplenish v-if="showReplenish" @close="showReplenish = false" />
