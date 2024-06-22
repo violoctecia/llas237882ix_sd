@@ -54,3 +54,4 @@ const checkAuthAndNavigate = () => {
     <ModalAuth v-if="showModal" @close="showModal = false" />
   </section>
 </template>
+

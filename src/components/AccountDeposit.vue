@@ -16,8 +16,8 @@ const totalAmount = computed(() => {
 });
 
 const startDate = computed(() => {
-  const dates = props.investments.map(investment => new Date(investment.createdAt));
-  return new Date(Math.min(...dates));
+  const dates = props.investments.map(investment => new Date(investment.createdAt)).filter(date => !isNaN(date));
+  return dates.length ? new Date(Math.min(...dates)) : null;
 });
 
 const dailyIncome = computed(() => {
@@ -47,7 +47,7 @@ const calculateCurrentIncome = () => {
     const secondsInPeriod = type.months * 30 * 24 * 3600;
     const yearlyRate = type.percent / 100;
     const income = amount + (amount * yearlyRate * (secondsPassed / secondsInPeriod));
-    return sum + (income - amount); // Consider only the income part
+    return sum + (income - amount);
   }, 0).toFixed(6);
   currentIncome.value = income;
 };
@@ -67,7 +67,7 @@ onMounted(() => {
           <span class="flex items-center cl-gray-4 font-13 font-rf-dewi font-bold">Активный вклад</span>
         </div>
         <ul class="deposit__date flex font-bold font-rf-dewi">
-          <li>{{ startDate.toLocaleDateString() }}</li>
+          <li>{{ startDate ? startDate.toLocaleDateString() : '-' }}</li>
         </ul>
       </div>
       <div class="flex justify-between deposit__values items-end">
@@ -86,7 +86,7 @@ onMounted(() => {
           <IconDate class="mr-10"/>
           <p class="flex flex-col">
             <span>Дата начала инвестирования</span>
-            <b class="font-medium font-13 cl-white">{{ startDate.toLocaleDateString() }}</b>
+            <b class="font-medium font-13 cl-white">{{ startDate ? startDate.toLocaleDateString() : '-' }}</b>
           </p>
         </li>
         <li class="flex items-center grow">

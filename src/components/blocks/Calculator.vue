@@ -1,20 +1,23 @@
 <script setup>
 import Slider from "@/components/blocks/Slider.vue";
 import ModalAuth from "@/components/ModalAuth.vue";
-import { computed, ref } from "vue";
+import { computed, ref, watch, nextTick, onMounted } from "vue";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 const props = defineProps(['title', 'main']);
 
 const items = ['3 месяца', '6 месяцев', 'Год'];
-const periods = [3, 6, 12]; // в месяцах
-const percentages = [10, 20, 40]; // процент доходности
+const periods = [3, 6, 12];
+const percentages = [10, 20, 40];
 
 const active = ref(0);
 const sliderValue = ref(300000);
 const investmentError = ref('');
 const showModal = ref(false);
+
+const minAmount = 100000;
+const maxAmount = 20000000;
 
 const toggle = (key) => {
   active.value = key;
@@ -26,9 +29,8 @@ const formattedSliderValue = computed(() => {
 });
 
 const calculatedIncome = computed(() => {
-  const periods = [3, 6, 12]; // в месяцах
-  const selectedPeriod = periods[active.value];
-  const income = sliderValue.value + (sliderValue.value / 12) * selectedPeriod;
+  const selectedPercentage = percentages[active.value];
+  const income = sliderValue.value + (sliderValue.value / 100) * selectedPercentage;
   const roundedIncome = Math.round(income);
   return roundedIncome.toLocaleString('de-DE') + '₽';
 });
@@ -37,7 +39,7 @@ const calculatedProfit = computed(() => {
   const income = sliderValue.value / 12;
   const roundedIncome = Math.round(income);
   return roundedIncome.toLocaleString('de-DE') + '₽';
-})
+});
 
 const invest = async () => {
   const sessionUuid = Cookies.get('sessionUuid');
@@ -50,7 +52,7 @@ const invest = async () => {
   try {
     const requestData = {
       amount: sliderValue.value,
-      type: active.value + 1, // ID копилки (1, 2, 3)
+      type: active.value + 1,
       sessionUuid: sessionUuid,
     };
     console.log('Request data:', requestData);
@@ -60,9 +62,8 @@ const invest = async () => {
     if (response.data.success) {
       investmentError.value = '';
       console.log('Инвестиция успешно создана.');
-      // Дополнительные действия при успешной инвестиции, например, обновление баланса или истории
     } else {
-      investmentError.value = response.data.error || 'Произошла ошибка при инвестировании.';
+      investmentError.value = 'Недостаточный баланс';
       console.log('Ошибка:', response.data.error);
     }
   } catch (error) {
@@ -78,6 +79,56 @@ const handleInvestClick = () => {
     invest();
   }
 };
+
+// Синхронизация значения инпута со значением sliderValue
+const handleInputChange = (event) => {
+  const value = parseInt(event.target.value.replace(/\D/g, ''));
+  if (!isNaN(value)) {
+    if (value < minAmount) {
+      investmentError.value = `Минимальная сумма для инвестирования ${minAmount.toLocaleString('de-DE')}₽`;
+    } else if (value > maxAmount) {
+      investmentError.value = `Максимальная сумма для инвестирования ${maxAmount.toLocaleString('de-DE')}₽`;
+    } else {
+      investmentError.value = '';
+      sliderValue.value = value;
+    }
+  }
+};
+
+// Следим за изменением значения sliderValue и форматируем его для инпута
+watch(sliderValue, (newValue) => {
+  nextTick(() => {
+    const inputElement = document.getElementById('sliderInput');
+    if (inputElement) {
+      inputElement.value = newValue.toLocaleString('de-DE');
+      adjustInputWidth(inputElement);
+    }
+  });
+});
+
+// Функция для динамического изменения ширины инпута
+const adjustInputWidth = (inputElement) => {
+  const tempSpan = document.createElement('span');
+  tempSpan.style.visibility = 'hidden';
+  tempSpan.style.position = 'absolute';
+  tempSpan.style.whiteSpace = 'nowrap';
+  tempSpan.style.fontFamily = getComputedStyle(inputElement).fontFamily;
+  tempSpan.style.fontSize = getComputedStyle(inputElement).fontSize;
+  tempSpan.textContent = inputElement.value;
+  document.body.appendChild(tempSpan);
+  inputElement.style.width = `${tempSpan.offsetWidth}px`;
+  document.body.removeChild(tempSpan);
+};
+
+// Инициализация ширины инпута при монтировании компонента
+onMounted(() => {
+  nextTick(() => {
+    const inputElement = document.getElementById('sliderInput');
+    if (inputElement) {
+      adjustInputWidth(inputElement);
+    }
+  });
+});
 </script>
 
 <template>
@@ -99,12 +150,20 @@ const handleInvestClick = () => {
         </li>
       </ul>
 
-      <div class="calc__form-value font-bold font-rf-dewi flex flex-center">
+      <div class="form-input calc__form-value font-bold font-rf-dewi flex flex-center">
         <b class="cl-orange">₽&nbsp;</b>
-        <span class="cl-white">{{ formattedSliderValue }}</span>
+        <input
+            id="sliderInput"
+            type="text"
+            :value="formattedSliderValue"
+            @input="handleInputChange"
+            style="background: transparent; border: none; text-align: center; font-family: var(--font-rf-dewi); font-weight: 700; color: var(--color-white);"
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+        />
       </div>
 
-      <Slider v-model="sliderValue" :min="100000" :max="20000000" class="mt-10"/>
+      <Slider v-model="sliderValue" :min="minAmount" :max="maxAmount" class="mt-10"/>
+
     </div>
 
     <div class="calc__form-foot flex flex-col">
@@ -112,7 +171,7 @@ const handleInvestClick = () => {
         Инвестировать
       </button>
 
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between" >
         <span class="calc__form-label cl-white font-13">Общий доход</span>
         <span class="calc__form-income font-medium flex flex-center">+ {{ calculatedIncome }}</span>
       </div>
@@ -122,9 +181,37 @@ const handleInvestClick = () => {
         <span class="calc__form-income font-medium flex flex-center">{{ calculatedProfit }}/мес</span>
       </div>
 
-      <div v-if="investmentError" class="cl-orange mt-2">{{ investmentError }}</div>
+    </div>
+
+    <div class="calc__form-foot flex flex-col" v-if="investmentError">
+      <div class="flex items-center justify-between">
+        <div class="cl-orange mt-2">{{ investmentError }}</div>
+      </div>
     </div>
 
     <ModalAuth v-if="showModal" @close="showModal = false"/>
   </div>
 </template>
+
+<style scoped>
+.form-input {
+  display: flex;
+  justify-content: center;
+
+  input {
+    display: flex;
+    min-width: 54px;
+    font-family: var(--font-rf-dewi);
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  input:focus {
+    border: none;
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+}
+</style>

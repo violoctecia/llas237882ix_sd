@@ -81,7 +81,7 @@ const handleCheckCode = async (event) => {
       Cookies.set('sessionUuid', response.data.sessionUuid, { expires: 0.0208 });
       await fetchUserData(router);
     } else {
-      codeError.value = 'Invalid code or code expired';
+      codeError.value = 'Код неверный';
       console.log('Error:', 'Invalid code or code expired');
     }
   } catch (error) {
