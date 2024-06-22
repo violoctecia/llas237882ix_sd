@@ -14,14 +14,12 @@ export const fetchUserData = async (router) => {
             return;
         }
 
-        const response = await axios.post('/getMe', {
-            sessionUuid: sessionUuid,
-        });
-
+        const response = await axios.post('/getMe', { sessionUuid });
         console.log('Response data:', response.data);
 
         if (response.data.error) {
             console.log('Not authenticated');
+            Cookies.remove('sessionUuid');
             router.push({ name: 'home' });
         } else {
             userData.value = response.data.user;

@@ -40,7 +40,6 @@ const getCode = async (sanitizedPhoneNumber) => {
   try {
     const sessionUuid = Cookies.get('sessionUuid');
     if (sessionUuid) {
-      // Если sessionUuid уже существует, используем его для автоматического входа
       console.log('Session UUID found in cookies:', sessionUuid);
       await fetchUserData(router);
       return;
@@ -115,12 +114,7 @@ const handleKeyDown = (event, index) => {
 };
 
 onMounted(async () => {
-  const sessionUuid = Cookies.get('sessionUuid');
-  if (sessionUuid) {
-    await fetchUserData(router);
-  } else {
-    console.log('Session not found, needs log in.');
-  }
+  await fetchUserData(router);
 });
 </script>
 
