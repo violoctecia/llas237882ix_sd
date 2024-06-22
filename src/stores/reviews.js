@@ -12,10 +12,7 @@ export const useReviewsStore = defineStore('reviews', () => {
       name: '<span>Михаил Сидорычев</span> <span class="cl-white-1">Многократный чемпион и призёр на чемпионатах России, Европы и мира.</span>',
       image: ['/src/assets/img/other/img-3.jpg', '/src/assets/img/other/img-3.jpg']
     },
-    {
-      name: 'Доганин Алексей',
-      image: ['/src/assets/img/other/img-1.jpg', '/src/assets/img/other/img-1@2x.jpg']
-    },
+
   ]
 
   return {sub, title, items}
