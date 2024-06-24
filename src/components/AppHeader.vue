@@ -58,7 +58,7 @@ const handleLogout = async () => {
         <li class="header__location">
           <span class="flex items-center header__icon">
             <IconLocation />
-            <b class="font-medium font-13 ml-10">Московская область, д. Путилково</b>
+            <b class="font-medium font-13 ml-10">Г. Москва, Пресненская набережная, 12</b>
           </span>
         </li>
       </ul>
